@@ -3,68 +3,59 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement2D : MonoBehaviour
 {
-    [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpPower = 7f;
-    public float gravity = 20f;
+    public float gravity = 10f;
 
-    private CharacterController controller;
-    private float verticalVelocity;
+    private Vector3 moveDirection = Vector3.zero;
+    private CharacterController characterController;
 
-    public int facingDirection { get; private set; } = 1;
+    [HideInInspector] public int facingDirection = 1; // 1 = rechts, -1 = links
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
-    { Debug.Log("Raw Horizontal = " + Input.GetAxisRaw("Horizontal"));
-
-        HandleMovement();
-    }
-
-    void HandleMovement()
     {
-        // --- Input ---
-        float inputX = Input.GetAxisRaw("Horizontal");
-        if (Mathf.Abs(inputX) < 0.2f) inputX = 0f; // deadzone
+        float moveX = Input.GetAxis("Horizontal") * moveSpeed;
+        float movementDirectionY = moveDirection.y;
 
-        float moveX = inputX * moveSpeed;
+        // Update facing direction
+        if (moveX != 0)
+            facingDirection = moveX > 0 ? 1 : -1;
 
-        // --- Facing ---
-        if (moveX > 0.1f)
-        {
-            facingDirection = 1;
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if (moveX < -0.1f)
-        {
-            facingDirection = -1;
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        moveDirection = new Vector3(moveX, 0, 0);
 
-        // --- Jump & Gravity ---
-        if (controller.isGrounded)
+        // Jump input: Space (PC) of A / Cross (controller)
+        if (characterController.isGrounded)
         {
-            verticalVelocity = -1f;
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1))
             {
-                verticalVelocity = jumpPower;
+                moveDirection.y = jumpPower;
             }
         }
         else
         {
-            verticalVelocity -= gravity * Time.deltaTime;
+            moveDirection.y = movementDirectionY;
         }
 
-        // --- Move ---
-        Vector3 move = new Vector3(moveX, verticalVelocity, 0);
-        controller.Move(move * Time.deltaTime);
+        // Apply gravity
+        if (!characterController.isGrounded)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
 
-        // --- Fix: forceer Z = 0 (geen autowalk meer in Z) ---
-        Vector3 pos = transform.position;
-        pos.z = 0;
-        transform.position = pos;
+        // Move character
+        characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    // Voor andere scripts om verticale snelheid te zetten (bijv. pogo)
+    public void SetVerticalVelocity(float velocity)
+    {
+        moveDirection.y = velocity;
     }
 }

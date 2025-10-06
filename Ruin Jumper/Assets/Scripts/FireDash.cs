@@ -17,20 +17,24 @@ public class FireDash : MonoBehaviour
 
     private PlayerMovement2D player;
     private CharacterController controller;
+    private RuneManager runeManager;
     private bool canDash = true;
 
     void Start()
     {
         player = GetComponent<PlayerMovement2D>();
-        controller = GetComponent<CharacterController>(); // ✅ direct opgehaald
+        controller = GetComponent<CharacterController>();
+        runeManager = FindObjectOfType<RuneManager>();
     }
 
     void Update()
     {
-        // Dash input → LeftShift (keyboard) of B / Circle (controller)
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton1)) && canDash)
+        if (runeManager != null && runeManager.IsRuneActive(RuneType.Fire))
         {
-            StartCoroutine(DoDash());
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0)) && canDash)
+            {
+                StartCoroutine(DoDash());
+            }
         }
     }
 
@@ -38,35 +42,21 @@ public class FireDash : MonoBehaviour
     {
         canDash = false;
 
-        // 🔥 Spawn vuurtrail
+        // Fire trail
         if (fireTrailPrefab != null)
         {
             GameObject trail = Instantiate(fireTrailPrefab, transform.position, Quaternion.identity);
             Destroy(trail, particleLifetime);
         }
-        else
-        {
-            Debug.LogWarning("FireDash: fireTrailPrefab is niet toegewezen!");
-        }
 
-        // 📸 Camera shake
-        CameraFollow2D camFollow = null;
-        if (Camera.main != null) camFollow = Camera.main.GetComponent<CameraFollow2D>();
+        // Camera shake
+        CameraFollow2D camFollow = Camera.main?.GetComponent<CameraFollow2D>();
         if (camFollow != null)
-        {
             StartCoroutine(camFollow.CameraShake(0.2f, 0.3f));
-        }
 
         float startTime = Time.time;
-        float verticalVelocity = 0f;
+        float verticalVelocity = (!controller.isGrounded) ? airBoostPower : 0f;
 
-        // Als je in de lucht dashed → kleine boost omhoog
-        if (!controller.isGrounded)
-        {
-            verticalVelocity = airBoostPower;
-        }
-
-        // Beweging tijdens dash
         while (Time.time < startTime + dashDuration)
         {
             Vector3 dashDir = Vector3.right * player.facingDirection;
@@ -74,7 +64,6 @@ public class FireDash : MonoBehaviour
             yield return null;
         }
 
-        // Cooldown
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
