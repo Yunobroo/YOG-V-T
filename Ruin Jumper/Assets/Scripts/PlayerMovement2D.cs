@@ -3,12 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement2D : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpPower = 7f;
     public float gravity = 10f;
 
+    [Header("Jump Helpers")]
+    public float coyoteTime = 0.2f;       // Tijd dat je nog kunt springen nadat je van de grond valt
+    public float jumpBufferTime = 0.1f;   // Tijd dat jump input bewaard blijft
+
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
+
+    private float lastGroundedTime = -1f;
+    private float lastJumpPressTime = -1f;
 
     [HideInInspector] public int facingDirection = 1; // 1 = rechts, -1 = links
 
@@ -21,39 +29,64 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Update()
     {
+        HandleMovement();
+        HandleJump();
+    }
+
+    void HandleMovement()
+    {
         float moveX = Input.GetAxis("Horizontal") * moveSpeed;
-        float movementDirectionY = moveDirection.y;
 
         // Update facing direction
         if (moveX != 0)
             facingDirection = moveX > 0 ? 1 : -1;
 
-        moveDirection = new Vector3(moveX, 0, 0);
+        moveDirection.x = moveX;
 
-        // Jump input: Space (PC) of A / Cross (controller)
-        if (characterController.isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1))
-            {
-                moveDirection.y = jumpPower;
-            }
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
-        }
-
-        // Apply gravity
-        if (!characterController.isGrounded)
+        // Gravity
+        if (!IsGrounded())
         {
             moveDirection.y -= gravity * Time.deltaTime;
         }
+        else if (moveDirection.y < 0)
+        {
+            moveDirection.y = -2f; // kleine negatieve waarde om contact te behouden
+        }
 
-        // Move character
         characterController.Move(moveDirection * Time.deltaTime);
+
+        // 🔄 Flip character op basis van facingDirection
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * facingDirection;
+        transform.localScale = scale;
     }
 
-    // Voor andere scripts om verticale snelheid te zetten (bijv. pogo)
+    void HandleJump()
+    {
+        // Registreren van jump input
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1))
+            lastJumpPressTime = Time.time;
+
+        // Update grounded timer
+        if (IsGrounded())
+            lastGroundedTime = Time.time;
+
+        // Jump voorwaarden: coyote time + jump buffer
+        if (Time.time - lastJumpPressTime <= jumpBufferTime &&
+            Time.time - lastGroundedTime <= coyoteTime)
+        {
+            moveDirection.y = jumpPower;
+            lastJumpPressTime = -1f; // reset buffer
+        }
+    }
+
+    // Simpele ground check
+    bool IsGrounded()
+    {
+        return characterController.isGrounded;
+    }
+
+    // Voor andere scripts zoals pogo/shield
     public void SetVerticalVelocity(float velocity)
     {
         moveDirection.y = velocity;

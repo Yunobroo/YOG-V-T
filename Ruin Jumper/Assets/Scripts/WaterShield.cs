@@ -2,39 +2,43 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerMovement2D))]
 public class WaterShield : MonoBehaviour
 {
-    public GameObject waterShieldVFX;
-    public GameObject splashEffect;
-    public float shieldDuration = 2f;
+    [Header("Shield Settings")]
+    public GameObject waterShieldVFX;   // Het visuele effect
+    public GameObject splashEffect;      // Bounce effect
     public float bounceForce = 12f;
     public LayerMask pogoSurfaces;
 
     private CharacterController controller;
     private PlayerMovement2D playerMovement;
-    private RuneManager runeManager;
     private bool shieldActive = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement2D>();
-        runeManager = GetComponent<RuneManager>();
 
         if (waterShieldVFX != null)
-            waterShieldVFX.SetActive(false);
+            waterShieldVFX.SetActive(false); // start uit
     }
 
     void Update()
     {
-        if (runeManager == null || !runeManager.IsRuneActive(RuneType.Water)) return;
+        // Shield activatie: knop ingedrukt
+        bool shieldInput = Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.JoystickButton5);
 
-        // WaterShield activeren met Square (PS) of X (Xbox) = JoystickButton2
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !shieldActive)
+        if (shieldInput && !shieldActive)
         {
-            StartCoroutine(ActivateShield());
+            ActivateShield();
+        }
+        else if (!shieldInput && shieldActive)
+        {
+            DeactivateShield();
         }
 
+        // Pogo bounce terwijl shield actief is
         if (shieldActive && !controller.isGrounded)
         {
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, pogoSurfaces))
@@ -44,15 +48,16 @@ public class WaterShield : MonoBehaviour
         }
     }
 
-    IEnumerator ActivateShield()
+    void ActivateShield()
     {
         shieldActive = true;
 
         if (waterShieldVFX != null)
             waterShieldVFX.SetActive(true);
+    }
 
-        yield return new WaitForSeconds(shieldDuration);
-
+    void DeactivateShield()
+    {
         shieldActive = false;
 
         if (waterShieldVFX != null)
@@ -67,4 +72,3 @@ public class WaterShield : MonoBehaviour
             Instantiate(splashEffect, hitPoint, Quaternion.identity);
     }
 }
-
