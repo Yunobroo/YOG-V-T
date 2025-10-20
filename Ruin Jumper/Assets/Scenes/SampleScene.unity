@@ -654,7 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
   moveSpeed: 6
   jumpPower: 7
-  gravity: 10
+  gravity: 14
   coyoteTime: 0.2
   jumpBufferTime: 0.1
   facingDirection: 1
@@ -840,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8441069785597396129, guid: 303312000ed320b44bc4b73116a1f56c, type: 3}
       propertyPath: m_SlopeLimit
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8923566088027827256, guid: 303312000ed320b44bc4b73116a1f56c, type: 3}
       propertyPath: m_LocalScale.x

@@ -28,7 +28,7 @@ public class FireDash : MonoBehaviour
     void Update()
     {
         // Dash input → LeftShift (keyboard) of B / Circle (controller)
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0)) && canDash)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton7)) && canDash)
         {
             StartCoroutine(DoDash());
         }

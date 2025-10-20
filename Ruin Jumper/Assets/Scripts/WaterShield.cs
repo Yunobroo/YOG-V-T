@@ -27,7 +27,7 @@ public class WaterShield : MonoBehaviour
     void Update()
     {
         // Shield activatie: knop ingedrukt
-        bool shieldInput = Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.JoystickButton5);
+        bool shieldInput = Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.JoystickButton4);
 
         if (shieldInput && !shieldActive)
         {
