@@ -6,8 +6,9 @@ using UnityEngine;
 public class WaterShield : MonoBehaviour
 {
     [Header("Shield Settings")]
-    public GameObject waterShieldVFX;   // Het visuele effect
-    public GameObject splashEffect;      // Bounce effect
+    public GameObject waterShieldVFX;   // Visuele effect
+    public Collider shieldCollider;     // De SphereCollider die reflecteert
+    public GameObject splashEffect;
     public float bounceForce = 12f;
     public LayerMask pogoSurfaces;
 
@@ -21,12 +22,14 @@ public class WaterShield : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement2D>();
 
         if (waterShieldVFX != null)
-            waterShieldVFX.SetActive(false); // start uit
+            waterShieldVFX.SetActive(false);
+
+        if (shieldCollider != null)
+            shieldCollider.enabled = false;
     }
 
     void Update()
     {
-        // Shield activatie: knop ingedrukt
         bool shieldInput = Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.JoystickButton4);
 
         if (shieldInput && !shieldActive)
@@ -38,7 +41,6 @@ public class WaterShield : MonoBehaviour
             DeactivateShield();
         }
 
-        // Pogo bounce terwijl shield actief is
         if (shieldActive && !controller.isGrounded)
         {
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, pogoSurfaces))
@@ -54,6 +56,11 @@ public class WaterShield : MonoBehaviour
 
         if (waterShieldVFX != null)
             waterShieldVFX.SetActive(true);
+
+        if (shieldCollider != null)
+            shieldCollider.enabled = true;
+
+        Debug.Log("🟦 Shield ACTIVATED");
     }
 
     void DeactivateShield()
@@ -62,6 +69,11 @@ public class WaterShield : MonoBehaviour
 
         if (waterShieldVFX != null)
             waterShieldVFX.SetActive(false);
+
+        if (shieldCollider != null)
+            shieldCollider.enabled = false;
+
+        Debug.Log("🟥 Shield DEACTIVATED");
     }
 
     void DoBounce(Vector3 hitPoint)
