@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: d89a71a1f1e03624e8e2b7708e5f3aa6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fireTrailPrefab: {fileID: 3478543224254939173, guid: 70b63d8385106584d95e563cb0f2bc39, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
