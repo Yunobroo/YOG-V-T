@@ -2,23 +2,29 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 12f;
     public float lifeTime = 4f;
-    public float reflectSpeedMultiplier = 1.2f;
+    public float reflectMultiplier = 1.2f;
 
     private Vector3 direction;
-    private bool reflected = false;
+    private bool reflected;
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
-    // Wordt aangeroepen door de EnemyAI
+    // ✅ Nieuwe versie van Launch — accepteert ook snelheid
     public void Launch(Vector3 dir, float newSpeed)
     {
         direction = dir.normalized;
         speed = newSpeed;
+    }
+
+    // (optioneel behoud van de oude, voor backwards compatibility)
+    public void Launch(Vector3 dir)
+    {
+        direction = dir.normalized;
     }
 
     void Update()
@@ -28,29 +34,26 @@ public class EnemyProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // --- Raakt WaterShield ---
+        // zie altijd wat geraakt wordt
+        Debug.Log($"Projectile trigger with {other.name}, tag={other.tag}");
+
+        // --- reflectie ---
         if (other.CompareTag("WaterShield") && !reflected)
         {
             reflected = true;
 
-            // Reflecteer richting: van shield vandaan
-           // Reflecteer de invalshoek tegen de botsingsnormaal
-Vector3 normal = (transform.position - other.transform.position).normalized;
-direction = Vector3.Reflect(direction, normal);
+            // reflectie vector — projectiel stuitert weg van shield
+            direction = (transform.position - other.transform.position).normalized;
+            speed *= reflectMultiplier;
 
+            var r = GetComponent<Renderer>();
+            if (r) r.material.color = Color.cyan;
 
-            // Eventueel wat sneller bij reflectie
-            speed *= reflectSpeedMultiplier;
-
-            // Optioneel kleur veranderen bij reflectie
-            var rend = GetComponent<Renderer>();
-            if (rend) rend.material.color = Color.cyan;
-
-            Debug.Log("💧 Projectile reflected!");
+            Debug.Log("💧 Reflected!");
             return;
         }
 
-        // --- Raakt Player (niet gereflecteerd) ---
+        // --- speler geraakt ---
         if (other.CompareTag("Player") && !reflected)
         {
             Debug.Log("🔥 Player hit!");
@@ -58,20 +61,19 @@ direction = Vector3.Reflect(direction, normal);
             return;
         }
 
-        // --- Raakt Enemy (na reflectie) ---
+        // --- enemy geraakt na reflectie ---
         if (other.CompareTag("Enemy") && reflected)
         {
-            Debug.Log("💥 Enemy hit by reflected shot!");
-            var enemy = other.GetComponent<EnemyAI2D>();
-            if (enemy != null)
-                enemy.TakeDamage(1);
+            var e = other.GetComponent<EnemyAI2D>();
+            if (e) e.TakeDamage(1);
 
+            Debug.Log("💥 Enemy hit by reflected shot!");
             Destroy(gameObject);
             return;
         }
 
-        // --- Raakt iets anders (grond/muur/etc) ---
-        if (!other.CompareTag("Player") && !other.CompareTag("WaterShield") && !other.CompareTag("Enemy"))
+        // --- iets anders geraakt ---
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Player") && !other.CompareTag("WaterShield"))
         {
             Destroy(gameObject);
         }
