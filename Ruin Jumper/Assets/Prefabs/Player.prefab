@@ -354,7 +354,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -880,9 +880,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705cbba3937c60149ac6ff70ff745423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
-  moveSpeed: 6
-  jumpPower: 7
-  gravity: 20
+  moveSpeed: 10
+  jumpPower: 20
+  jumpGravity: 20
+  gravity: 60
   coyoteTime: 0.2
   jumpBufferTime: 0.1
   facingDirection: 1

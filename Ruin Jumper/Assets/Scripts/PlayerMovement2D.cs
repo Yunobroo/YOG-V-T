@@ -6,6 +6,7 @@ public class PlayerMovement2D : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpPower = 7f;
+    public float jumpGravity = 10f;
     public float gravity = 10f;
 
     [Header("Jump Helpers")]
@@ -46,7 +47,7 @@ public class PlayerMovement2D : MonoBehaviour
         // Gravity
         if (!IsGrounded())
         {
-            moveDirection.y -= gravity * Time.deltaTime;
+            IsJumping();
         }
         else if (moveDirection.y < 0)
         {
@@ -75,9 +76,20 @@ public class PlayerMovement2D : MonoBehaviour
         if (Time.time - lastJumpPressTime <= jumpBufferTime &&
             Time.time - lastGroundedTime <= coyoteTime)
         {
-            moveDirection.y = jumpPower;
+            moveDirection.y += jumpPower;
             lastJumpPressTime = -1f; // reset buffer
         }
+    }
+
+    void IsJumping()
+    {
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton1))
+            moveDirection.y -= jumpGravity * Time.deltaTime;
+        else
+            moveDirection.y -= gravity * Time.deltaTime;
+
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.JoystickButton1))
+            moveDirection.y = 0;
     }
 
     // Simpele ground check
