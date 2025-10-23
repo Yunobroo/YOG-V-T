@@ -89,7 +89,10 @@ public class PlayerMovement2D : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
 
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.JoystickButton1))
-            moveDirection.y = 0;
+            while (moveDirection.y >= 0)
+            {
+                moveDirection.y -= 1;
+            }
     }
 
     // Simpele ground check
