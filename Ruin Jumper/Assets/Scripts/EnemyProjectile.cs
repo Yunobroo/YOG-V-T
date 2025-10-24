@@ -5,23 +5,24 @@ public class EnemyProjectile : MonoBehaviour
     public float speed = 12f;
     public float lifeTime = 4f;
     public float reflectMultiplier = 1.2f;
+    public int damage = 1;
+    public float enemyHitDelay = 0.05f; // kleine vertraging zodat het niet direct despawnt bij reflectie
 
     private Vector3 direction;
     private bool reflected;
+    private bool canHitEnemy = false;
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
-    // ✅ Nieuwe versie van Launch — accepteert ook snelheid
     public void Launch(Vector3 dir, float newSpeed)
     {
         direction = dir.normalized;
         speed = newSpeed;
     }
 
-    // (optioneel behoud van de oude, voor backwards compatibility)
     public void Launch(Vector3 dir)
     {
         direction = dir.normalized;
@@ -34,15 +35,12 @@ public class EnemyProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // zie altijd wat geraakt wordt
         Debug.Log($"Projectile trigger with {other.name}, tag={other.tag}");
 
         // --- reflectie ---
         if (other.CompareTag("WaterShield") && !reflected)
         {
             reflected = true;
-
-            // reflectie vector — projectiel stuitert weg van shield
             direction = (transform.position - other.transform.position).normalized;
             speed *= reflectMultiplier;
 
@@ -50,6 +48,7 @@ public class EnemyProjectile : MonoBehaviour
             if (r) r.material.color = Color.cyan;
 
             Debug.Log("💧 Reflected!");
+            Invoke(nameof(EnableEnemyHit), enemyHitDelay); // korte vertraging
             return;
         }
 
@@ -57,17 +56,25 @@ public class EnemyProjectile : MonoBehaviour
         if (other.CompareTag("Player") && !reflected)
         {
             Debug.Log("🔥 Player hit!");
+
+            var playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+                playerHealth.TakeDamage(damage);
+
             Destroy(gameObject);
             return;
         }
 
         // --- enemy geraakt na reflectie ---
-        if (other.CompareTag("Enemy") && reflected)
+        if (other.CompareTag("Enemy") && reflected && canHitEnemy)
         {
             var e = other.GetComponent<EnemyAI2D>();
-            if (e) e.TakeDamage(1);
+            if (e != null)
+            {
+                e.TakeDamage(damage);
+                Debug.Log("💥 Enemy hit by reflected shot!");
+            }
 
-            Debug.Log("💥 Enemy hit by reflected shot!");
             Destroy(gameObject);
             return;
         }
@@ -77,5 +84,10 @@ public class EnemyProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void EnableEnemyHit()
+    {
+        canHitEnemy = true;
     }
 }
