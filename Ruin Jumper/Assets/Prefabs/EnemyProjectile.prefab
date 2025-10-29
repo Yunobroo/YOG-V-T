@@ -127,7 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectile
   speed: 12
   lifeTime: 4
-  reflectSpeedMultiplier: 1.2
+  reflectMultiplier: 1.2
+  damage: 20
 --- !u!54 &1379177107543528079
 Rigidbody:
   m_ObjectHideFlags: 0
