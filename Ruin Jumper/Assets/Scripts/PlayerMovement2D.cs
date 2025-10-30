@@ -106,4 +106,9 @@ public class PlayerMovement2D : MonoBehaviour
     {
         moveDirection.y = velocity;
     }
+
+    public void SaveVelocity()
+    {
+        StaticData.savedVelocity = moveDirection;
+    }
 }
