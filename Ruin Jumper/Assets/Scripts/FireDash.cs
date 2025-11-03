@@ -22,12 +22,15 @@ public class FireDash : MonoBehaviour
     public GameObject hitVFX;
     public float knockbackForce = 10f;
 
+    [Header("Ability Info")]
+    public string abilityName = "FireDash"; // gebruikt door AbilityManager
+
     private PlayerMovement2D player;
     private CharacterController controller;
     private bool canDash = true;
     private bool isDashing = false;
 
-    // Optionele getter voor gebruik door EnemyCharger
+    // Optionele getter voor andere scripts (zoals EnemyCharger)
     public bool IsDashing => isDashing;
 
     void Start()
@@ -38,6 +41,10 @@ public class FireDash : MonoBehaviour
 
     void Update()
     {
+        // 🔒 Check of ability unlocked is
+        if (AbilityManager.Instance == null || !AbilityManager.Instance.IsUnlocked(abilityName))
+            return;
+
         // Dash input → LeftShift (keyboard) of B / Circle (controller)
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton7)) && canDash)
         {
@@ -95,25 +102,30 @@ public class FireDash : MonoBehaviour
     private void CheckDashHits()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, dashHitRadius);
+
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Enemy"))
+            if (!hit.CompareTag("Enemy")) continue;
+
+            // 🧠 Zoek elk script met TakeDamage(int)
+            var target = hit.GetComponentInParent<MonoBehaviour>();
+            if (target == null) continue;
+
+            var method = target.GetType().GetMethod("TakeDamage");
+            if (method != null)
             {
-                var enemyHealth = hit.GetComponent<EnemyCharger>();
-                if (enemyHealth != null)
-                {
-                    enemyHealth.TakeDamage(dashDamage);
+                Debug.Log($"🔥 Dash hit enemy: {hit.name} ({target.GetType().Name})");
+                method.Invoke(target, new object[] { dashDamage });
 
-                    // 💨 Knockback
-                    Vector3 knockDir = (hit.transform.position - transform.position).normalized;
-                    knockDir.z = 0;
-                    var enemyCC = hit.GetComponent<CharacterController>();
-                    if (enemyCC != null)
-                        StartCoroutine(EnemyKnockback(enemyCC, knockDir));
+                // 💨 Knockback
+                Vector3 knockDir = (hit.transform.position - transform.position).normalized;
+                knockDir.z = 0;
+                var enemyCC = hit.GetComponentInParent<CharacterController>();
+                if (enemyCC != null)
+                    StartCoroutine(EnemyKnockback(enemyCC, knockDir));
 
-                    if (hitVFX != null)
-                        Instantiate(hitVFX, hit.transform.position, Quaternion.identity);
-                }
+                if (hitVFX != null)
+                    Instantiate(hitVFX, hit.transform.position, Quaternion.identity);
             }
         }
     }
@@ -126,7 +138,6 @@ public class FireDash : MonoBehaviour
         float timer = 0f;
         while (timer < 0.1f)
         {
-            // Enemy kan zijn vernietigd tijdens knockback
             if (enemy == null || enemy.gameObject == null)
                 yield break;
 
@@ -136,7 +147,7 @@ public class FireDash : MonoBehaviour
             }
             catch (MissingReferenceException)
             {
-                yield break; // object is verwijderd, stop veilig
+                yield break;
             }
 
             timer += Time.deltaTime;
