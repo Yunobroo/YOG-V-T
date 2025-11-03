@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 6176134180967099031}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -937,8 +937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 10
-  respawnDelay: 1.5
-  respawnPoint: {fileID: 0}
   deathVFX: {fileID: 0}
 --- !u!1 &5833351535395497359
 GameObject:
