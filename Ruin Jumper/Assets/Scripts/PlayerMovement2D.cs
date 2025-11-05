@@ -6,6 +6,7 @@ public class PlayerMovement2D : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpPower = 7f;
+    public float jumpCutOff = 5f;
     public float jumpGravity = 10f;
     public float gravity = 10f;
 
@@ -83,7 +84,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     void IsJumping()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton1))
+        if ( (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton1) ) && moveDirection.y > jumpCutOff)
             moveDirection.y -= jumpGravity * Time.deltaTime;
         else
             moveDirection.y -= gravity * Time.deltaTime;
@@ -105,5 +106,10 @@ public class PlayerMovement2D : MonoBehaviour
     public void SetVerticalVelocity(float velocity)
     {
         moveDirection.y = velocity;
+    }
+
+    public void SaveVelocity()
+    {
+        StaticData.savedVelocity = moveDirection;
     }
 }
