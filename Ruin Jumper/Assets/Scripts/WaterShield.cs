@@ -7,9 +7,12 @@ public class WaterShield : MonoBehaviour
 {
     [Header("Shield Settings")]
     public GameObject waterShieldVFX;   // Het visuele effect
-    public GameObject splashEffect;      // Bounce effect
+    public GameObject splashEffect;     // Bounce effect
     public float bounceForce = 12f;
     public LayerMask pogoSurfaces;
+
+    [Header("Ability Info")]
+    public string abilityName = "WaterShield"; // naam die gebruikt wordt in AbilityManager
 
     private CharacterController controller;
     private PlayerMovement2D playerMovement;
@@ -26,6 +29,14 @@ public class WaterShield : MonoBehaviour
 
     void Update()
     {
+        // 🔒 Check of de ability is unlocked
+        if (AbilityManager.Instance == null || !AbilityManager.Instance.IsUnlocked(abilityName))
+        {
+            if (shieldActive)
+                DeactivateShield();
+            return;
+        }
+
         // Shield activatie: knop ingedrukt
         bool shieldInput = Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.JoystickButton4);
 
