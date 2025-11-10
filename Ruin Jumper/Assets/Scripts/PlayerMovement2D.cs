@@ -19,6 +19,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     private float lastGroundedTime = -1f;
     private float lastJumpPressTime = -1f;
+    private Vector3 conveyorVelocity = Vector3.zero;
 
     [HideInInspector] public int facingDirection = 1; // 1 = rechts, -1 = links
 
@@ -57,10 +58,35 @@ public class PlayerMovement2D : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
 
+
         // 🔄 Flip character op basis van facingDirection
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * facingDirection;
         transform.localScale = scale;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Conveyor conveyor = hit.collider.GetComponent<Conveyor>();
+
+        if (conveyor != null)
+        {
+                // Only apply if standing on top of the belt
+            if (Vector3.Dot(hit.normal, Vector3.up) > 0.5f)
+            {
+                Vector3 moveDir = conveyor.GetDirection();
+                float speed = conveyor.GetVelocity();
+
+                // Conveyor velocity in world space (m/s)
+                conveyorVelocity = moveDir * speed;
+
+                characterController.Move(conveyorVelocity * Time.deltaTime);
+                
+                conveyorVelocity = Vector3.zero;
+
+                Debug.Log("Moving Player");
+            }
+        }
     }
 
     void HandleJump()

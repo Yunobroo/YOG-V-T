@@ -6412,7 +6412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6569042757529947367, guid: 2eb18072aa241dd43b77ee060a8cede2, type: 3}
       propertyPath: moveRight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6750680877368366962, guid: 2eb18072aa241dd43b77ee060a8cede2, type: 3}
       propertyPath: m_Mesh

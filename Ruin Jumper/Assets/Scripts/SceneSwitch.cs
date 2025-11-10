@@ -13,7 +13,6 @@ public class SceneSwitch : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            print("Beep");
             StaticData.exit_Id = exit_ID;
             SceneManager.LoadScene(next_Scene);   
         }
