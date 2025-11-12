@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
             InstantRespawn();
     }
 
-    private void InstantRespawn()
+    public void InstantRespawn()
     {
         Debug.Log("💀 Player died — instant respawn");
 

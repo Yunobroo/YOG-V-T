@@ -34,7 +34,7 @@ public class ConveyorVisual : MonoBehaviour
         }
     }
 
-    void Update()
+    void Start()
     {
         if (conveyor == null || mat == null) return;
 
@@ -46,6 +46,5 @@ public class ConveyorVisual : MonoBehaviour
 
         // Apply to material instance
         mat.SetFloat("_OffsetX", offsetX);
-        mat.SetFloat("_FlipX", dirSign);
     }
 }
