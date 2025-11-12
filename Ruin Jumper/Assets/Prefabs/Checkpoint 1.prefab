@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7704686843188983598}
-  - component: {fileID: 6360026538958955890}
   - component: {fileID: 3893480433231521019}
+  - component: {fileID: 5961429152701630353}
   m_Layer: 0
   m_Name: Checkpoint 1
   m_TagString: Respawn
@@ -33,20 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6360026538958955890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7457076086607494009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69ef9c6adc66064d8306b6df06d156b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  activateVFX: {fileID: 0}
-  activateSFX: {fileID: 0}
 --- !u!65 &3893480433231521019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66,5 +52,17 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.0825348, y: 4.4611006, z: 1}
-  m_Center: {x: 1.0412674, y: 1.7305503, z: 0}
+  m_Size: {x: 3.0825348, y: 4.4611006, z: 7}
+  m_Center: {x: 1.0412674, y: 1.7305503, z: 1}
+--- !u!114 &5961429152701630353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7457076086607494009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69ef9c6adc66064d8306b6df06d156b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
