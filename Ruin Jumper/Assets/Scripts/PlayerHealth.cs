@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,9 +8,11 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathVFX;
 
     private int currentHealth;
-    private Transform respawnPoint;
     private CharacterController controller;
     private PlayerMovement2D movement;
+
+    // 🔔 Event voor UI (HP icons)
+    public UnityEvent<int, int> OnHealthChanged;
 
     void Start()
     {
@@ -17,23 +20,16 @@ public class PlayerHealth : MonoBehaviour
         controller = GetComponent<CharacterController>();
         movement = GetComponent<PlayerMovement2D>();
 
-        // Zoek respawn punt via tag
-        GameObject r = GameObject.FindGameObjectWithTag("Respawn");
-        if (r != null)
-            respawnPoint = r.transform;
-        else
-        {
-            GameObject fallback = new GameObject("RespawnPoint");
-            fallback.transform.position = transform.position;
-            respawnPoint = fallback.transform;
-            Debug.LogWarning("⚠️ Geen Respawn-tag gevonden! Gebruik huidige positie als respawn.");
-        }
+        // Eerste update naar UI
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
         Debug.Log($"Player took {amount} damage! HP = {currentHealth}");
+
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
             InstantRespawn();
@@ -46,21 +42,59 @@ public class PlayerHealth : MonoBehaviour
         if (deathVFX != null)
             Instantiate(deathVFX, transform.position, Quaternion.identity);
 
-        // Zet speler direct terug
+        // ✅ Kies checkpoint als die bestaat, anders dichtstbijzijnde respawnpunt
+        Transform respawnPoint = Checkpoint.activeCheckpoint ?? FindClosestRespawnPoint();
+
+        if (respawnPoint == null)
+        {
+            Debug.LogWarning("⚠️ Geen respawnpunten gevonden — gebruik huidige positie");
+            respawnPoint = transform;
+        }
+
+        // Schakel tijdelijk uit zodat CharacterController niet glitcht
         controller.enabled = false;
         if (movement != null) movement.enabled = false;
 
+        // Teleporteer speler iets boven het punt (veilig boven grond)
         transform.position = respawnPoint.position + Vector3.up * 1.2f;
 
+        // Reset health
         currentHealth = maxHealth;
 
+        // Weer aanzetten
         controller.enabled = true;
         if (movement != null) movement.enabled = true;
+
+        // Update UI
+        OnHealthChanged.Invoke(currentHealth, maxHealth);
+    }
+
+    private Transform FindClosestRespawnPoint()
+    {
+        GameObject[] points = GameObject.FindGameObjectsWithTag("Respawn");
+        if (points.Length == 0)
+            return null;
+
+        Transform closest = points[0].transform;
+        float closestDist = Vector3.Distance(transform.position, closest.position);
+
+        foreach (GameObject p in points)
+        {
+            float dist = Vector3.Distance(transform.position, p.transform.position);
+            if (dist < closestDist)
+            {
+                closest = p.transform;
+                closestDist = dist;
+            }
+        }
+
+        Debug.Log($"🔁 Respawning at: {closest.name} (afstand {closestDist:F1})");
+        return closest;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Als we spikes raken → instant dood + respawn
+        // Instant death bij spikes
         if (other.CompareTag("Spikes"))
         {
             Debug.Log("☠️ Player touched spikes! Instant respawn!");

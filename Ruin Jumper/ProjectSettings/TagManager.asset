@@ -6,7 +6,6 @@ TagManager:
   tags:
   - WaterShield
   - Spikes
-  - respawn
   - Enemy
   layers:
   - Default
