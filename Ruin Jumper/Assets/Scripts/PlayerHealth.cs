@@ -27,8 +27,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log($"Player took {amount} damage! HP = {currentHealth}");
-
+       
         OnHealthChanged.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
@@ -37,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void InstantRespawn()
     {
-        Debug.Log("💀 Player died — instant respawn");
+     
 
         if (deathVFX != null)
             Instantiate(deathVFX, transform.position, Quaternion.identity);
@@ -47,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (respawnPoint == null)
         {
-            Debug.LogWarning("⚠️ Geen respawnpunten gevonden — gebruik huidige positie");
+           
             respawnPoint = transform;
         }
 
@@ -88,7 +87,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        Debug.Log($"🔁 Respawning at: {closest.name} (afstand {closestDist:F1})");
+       
         return closest;
     }
 
@@ -97,7 +96,7 @@ public class PlayerHealth : MonoBehaviour
         // Instant death bij spikes
         if (other.CompareTag("Spikes"))
         {
-            Debug.Log("☠️ Player touched spikes! Instant respawn!");
+         
             currentHealth = 0;
             InstantRespawn();
         }
