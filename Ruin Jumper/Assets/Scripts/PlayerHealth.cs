@@ -36,8 +36,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void InstantRespawn()
     {
-     
-
         if (deathVFX != null)
             Instantiate(deathVFX, transform.position, Quaternion.identity);
 
