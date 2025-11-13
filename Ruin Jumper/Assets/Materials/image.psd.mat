@@ -1,12 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!28 &-5404864547849354955
+--- !u!28 &-6594005654723027764
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":0.035589732229709628,"g":0.0,"b":0.7044024467468262,"a":1.0},"time":0.0},{"color":{"r":0.035589732229709628,"g":0.0,"b":0.7044024467468262,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -40,25 +40,12 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 1024
-  _typelessdata: ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4ff0900b4
+  _typelessdata: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
   m_StreamData:
     serializedVersion: 2
     offset: 0
     size: 0
     path: 
---- !u!114 &-4598504154570528378
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
-  version: 10
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -66,20 +53,20 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Conveyor Belt
-  m_Shader: {fileID: 4800000, guid: a2b42063e1df61d41bfe1c096932b8dd, type: 3}
+  m_Name: image.psd
+  m_Shader: {fileID: 4800000, guid: 2a230514c860643f69b6a4d1871d3825, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - DR_RIM_ON
+  m_ValidKeywords:
   - _DETAILMAPBLENDINGMODE_MULTIPLY
   - _TEXTUREBLENDINGMODE_MULTIPLY
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   - SRPDEFAULTUNLIT
@@ -92,8 +79,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 4f1c46695759c20448fea9cb28c7a4f5, type: 3}
-        m_Scale: {x: 1.5, y: 1}
+        m_Texture: {fileID: 2800000, guid: fc69b2583519e2f478f49851ef9d90b4, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -120,11 +107,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientRamp:
-        m_Texture: {fileID: -5404864547849354955}
+        m_Texture: {fileID: -6594005654723027764}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 03a469b770a79bf408aed14da3560e26, type: 3}
+        m_Texture: {fileID: 2800000, guid: fc69b2583519e2f478f49851ef9d90b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -181,7 +168,6 @@ Material:
     - _FlatRimSize: 0.5
     - _FlatSpecularEdgeSmoothness: 0
     - _FlatSpecularSize: 0.1
-    - _FlipX: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -195,7 +181,6 @@ Material:
     - _LightmapDirectionYaw: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OffsetX: 12.919294
     - _OutlineDepthOffset: 0
     - _OutlineEnabled: 0
     - _OutlineScale: 1
@@ -206,9 +191,8 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimEnabled: 1
-    - _ScrollSpeed: 1
-    - _SelfShadingSize: 1
+    - _RimEnabled: 0
+    - _SelfShadingSize: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularEnabled: 0
@@ -217,19 +201,19 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TextureBlendingMode: 0
-    - _TextureImpact: 0
+    - _TextureImpact: 1
     - _UnityShadowOcclusion: 0
     - _VertexColorsEnabled: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.31753087, g: 0.37253925, b: 0.59748423, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorGradient: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
     - _DetailMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlatRimColor: {r: 0, g: 0, b: 0, a: 0.85056}
+    - _FlatRimColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
     - _FlatSpecularColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
     - _LightAttenuation: {r: 0, g: 1, b: 0, a: 0}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
@@ -238,3 +222,16 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &9109162101317571745
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10

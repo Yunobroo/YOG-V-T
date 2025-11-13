@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fca5b97f8ad9ab6488d3f8a0eb564e7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,10 +192,10 @@ MonoBehaviour:
   chargeSpeed: 10
   chargeDuration: 1.2
   chargeCooldown: 2
-  chargeDamage: 20
+  chargeDamage: 2
   knockbackForce: 60
   knockbackDuration: 0.15
-  maxHealth: 1
+  maxHealth: 3
   deathVFX: {fileID: 0}
   chargeVFX: {fileID: 0}
   hitVFX: {fileID: 0}
