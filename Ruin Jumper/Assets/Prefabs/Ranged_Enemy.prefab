@@ -89,7 +89,7 @@ MonoBehaviour:
   firePoint: {fileID: 4689269975653423146}
   projectilePrefab: {fileID: 1195254758792124486, guid: 3e2ceb6d7d2d2a447993b2e359c2746d, type: 3}
   projectileSpeed: 14
-  maxHealth: 100
+  maxHealth: 3
   deathVFX: {fileID: 0}
 --- !u!136 &8533275834747945190
 CapsuleCollider:

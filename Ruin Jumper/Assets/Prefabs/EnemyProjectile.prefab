@@ -128,7 +128,8 @@ MonoBehaviour:
   speed: 12
   lifeTime: 4
   reflectMultiplier: 1.2
-  damage: 20
+  damage: 1
+  enemyHitDelay: 0.05
 --- !u!54 &1379177107543528079
 Rigidbody:
   m_ObjectHideFlags: 0
