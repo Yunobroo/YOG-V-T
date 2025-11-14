@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIHealthSwitcher : MonoBehaviour
 {
@@ -9,15 +10,21 @@ public class UIHealthSwitcher : MonoBehaviour
     [Tooltip("Health sprites in volgorde: 0 = dood, 1 = 1HP, ..., laatste = volle HP")]
     public GameObject[] healthStates;
 
+    private Canvas canvas;
+
     void Awake()
     {
-        // ❗ Blijf bestaan tussen scenes
+        // Blijf bestaan tussen scenes
         DontDestroyOnLoad(gameObject);
+
+        // Canvas cache
+        canvas = GetComponentInParent<Canvas>();
+        if (canvas == null)
+            Debug.LogWarning("⚠️ UIHealthSwitcher: geen Canvas gevonden!");
     }
 
     void OnEnable()
     {
-        // luister naar elke scene load
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -29,30 +36,29 @@ public class UIHealthSwitcher : MonoBehaviour
     void Start()
     {
         TryFindPlayer();
+        AdjustForResolution();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         TryFindPlayer();
+        AdjustForResolution();
     }
 
     private void TryFindPlayer()
     {
-        // probeer speler te vinden als er geen referentie is
         if (player == null)
             player = FindObjectOfType<PlayerHealth>();
 
         if (player != null)
         {
-            // eerst oude event afkoppelen om dubbele calls te vermijden
             player.OnHealthChanged.RemoveListener(UpdateHealthUI);
             player.OnHealthChanged.AddListener(UpdateHealthUI);
             UpdateHealthUI(player.maxHealth, player.maxHealth);
-            Debug.Log("❤️ Health UI gekoppeld aan player in scene: " + SceneManager.GetActiveScene().name);
         }
         else
         {
-            Debug.LogWarning("⚠️ Geen PlayerHealth gevonden — wacht op volgende scene load.");
+            Debug.LogWarning("⚠️ UIHealthSwitcher: PlayerHealth niet gevonden in scene!");
         }
     }
 
@@ -64,5 +70,18 @@ public class UIHealthSwitcher : MonoBehaviour
         int index = Mathf.Clamp(current, 0, healthStates.Length - 1);
         if (healthStates[index] != null)
             healthStates[index].SetActive(true);
+    }
+
+    private void AdjustForResolution()
+    {
+        if (canvas == null) return;
+
+        CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
+        if (scaler == null) return;
+
+        // Zorg dat hij altijd goed schaalt met scherm
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.matchWidthOrHeight = 0.5f;
     }
 }

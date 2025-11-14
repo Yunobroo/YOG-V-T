@@ -1581,11 +1581,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   attackCooldown: 0.4
   attackRange: 1.5
+  attackHeight: 1.2
   attackDamage: 10
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  attackVFX: {fileID: 0}
+  hitboxPrefab: {fileID: 0}
+  hitboxDuration: 0.15
 --- !u!1 &5833351535395497359
 GameObject:
   m_ObjectHideFlags: 0
