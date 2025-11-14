@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SwitchScript : MonoBehaviour
 {
@@ -13,8 +14,16 @@ public class SwitchScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StaticData.switchcount++;
-            Debug.Log($"Set switch count to: {StaticData.switchcount}");
-            Destroy(gameObject);
+            int count = StaticData.switchcount;
+            Debug.Log($"Set switch count to: {count}");
+            if(count == 4)
+            {
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+               Destroy(gameObject);
+            }
         }
     }
 }
